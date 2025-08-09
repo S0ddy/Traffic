@@ -68,6 +68,7 @@ def load_data(data_dir):
                 try:
                     # with open(filepath, 'r') as f:
                     image_ndarray = cv2.imread(filepath)
+
                     if image_ndarray is not None:
                         # resize
                         image_ndarray = cv2.resize(image_ndarray, (IMG_WIDTH, IMG_HEIGHT))
@@ -93,17 +94,23 @@ def get_model():
 
         # Convolutional layer. Learn 32 filters using a 3x3 kernel
         tf.keras.layers.Conv2D(
-            32, (3, 3), activation="relu", input_shape=(30,30,3)
+            32, (3, 3), activation="relu", input_shape=(30, 30, 3)
         ),
 
         # Max-pooling layer, using 2x2 pool size
         tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
 
-        # Convolutional layer. Learn 32 filters using a 3x3 kernel
+        # Convolutional layer. 
         tf.keras.layers.Conv2D(
-            32, (3, 3), activation="relu"
+            64, (3, 3), activation="relu"
         ),
+        # Max-pooling layer, using 2x2 pool size
+        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
 
+        # Convolutional layer. 
+        tf.keras.layers.Conv2D(
+            128, (3, 3), activation="relu"
+        ),
         # Max-pooling layer, using 2x2 pool size
         tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
 
