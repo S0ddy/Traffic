@@ -58,7 +58,26 @@ def load_data(data_dir):
     be a list of integer labels, representing the categories for each of the
     corresponding `images`.
     """
-    raise NotImplementedError
+    images = list()
+    labels = list()
+    for i in range(NUM_CATEGORIES):
+        folder = os.path.join(data_dir, str(i))
+        for filename in os.listdir(folder):
+            filepath = os.path.join(folder, filename)
+            if os.path.isfile(filepath):
+                try:
+                    # with open(filepath, 'r') as f:
+                    image_ndarray = cv2.imread(filepath)
+                    if image_ndarray is not None:
+                        # resize
+                        image_ndarray = cv2.resize(image_ndarray, (IMG_WIDTH, IMG_HEIGHT))
+                        images.append(image_ndarray)
+                        labels.append(i)
+                    else:
+                        print("Couldn convert an image to ndarray")
+                except Exception as e:
+                    print("Couldn't open the file. Error: " + e) 
+    return (images, labels)
 
 
 def get_model():
